@@ -2,116 +2,155 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../database/database_helper.dart';
-import '../../exams/model/marks_model.dart';
+import '../model/fee_model.dart';
 
-class MarksController extends GetxController {
-
+class FeeController extends GetxController {
   final DatabaseHelper db = DatabaseHelper();
 
-  final marks = <MarksModel>[].obs;
+  final fees = <FeeModel>[].obs;
 
   final isLoading = false.obs;
 
   final studentIdController =
   TextEditingController();
 
-  final subjectController =
+  final amountController =
   TextEditingController();
 
-  final totalMarksController =
-  TextEditingController();
-
-  final obtainedMarksController =
-  TextEditingController();
+  final isPaid = false.obs;
 
   @override
   void onInit() {
     super.onInit();
 
-    getMarks();
+    getFees();
   }
 
-  Future<void> getMarks() async {
+  Future<void> getFees() async {
     isLoading.value = true;
 
     await db.initDatabase();
 
-    final data = await db.getMarks();
+    final data = await db.getFees();
 
-    marks.assignAll(
+    fees.assignAll(
       data.map(
-            (item) => MarksModel.fromJson(item),
+            (item) => FeeModel.fromJson(item),
       ),
     );
 
     isLoading.value = false;
   }
 
-  Future<void> addMarks() async {
+  Future<void> addFee() async {
+    if (studentIdController.text.isEmpty ||
+        amountController.text.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Fill all fields',
+      );
 
-    await db.addMarks(
-      studentId: int.parse(
-        studentIdController.text,
-      ),
-      subject: subjectController.text,
-      totalMarks: int.parse(
-        totalMarksController.text,
-      ),
-      obtainedMarks: int.parse(
-        obtainedMarksController.text,
-      ),
+      return;
+    }
+
+    await db.addFee(
+      studentId:
+      int.parse(studentIdController.text),
+
+      amount:
+      double.parse(amountController.text),
+
+      status:
+      isPaid.value ? 'Paid' : 'Pending',
     );
 
     clearFields();
 
-    await getMarks();
-
-    Get.back();
+    await getFees();
   }
 
-  Future<void> updateMarks(int id) async {
-
-    await db.updateMarks(
+  Future<void> updateFee(int id) async {
+    await db.updateFee(
       id: id,
-      studentId: int.parse(
-        studentIdController.text,
-      ),
-      subject: subjectController.text,
-      totalMarks: int.parse(
-        totalMarksController.text,
-      ),
-      obtainedMarks: int.parse(
-        obtainedMarksController.text,
-      ),
+
+      studentId:
+      int.parse(studentIdController.text),
+
+      amount:
+      double.parse(amountController.text),
+
+      status:
+      isPaid.value ? 'Paid' : 'Pending',
     );
 
     clearFields();
 
-    await getMarks();
-
-    Get.back();
+    await getFees();
   }
 
-  Future<void> deleteMarks(int id) async {
+  Future<void> deleteFee(int id) async {
+    await db.deleteFee(id);
 
-    await db.deleteMarks(id);
-
-    await getMarks();
+    await getFees();
   }
 
   void clearFields() {
     studentIdController.clear();
-    subjectController.clear();
-    totalMarksController.clear();
-    obtainedMarksController.clear();
+    amountController.clear();
+
+    isPaid.value = false;
+  }
+
+  int get paidFees {
+    return fees
+        .where((fee) => fee.status == 'Paid')
+        .length;
+  }
+
+  int get pendingFees {
+    return fees
+        .where((fee) => fee.status == 'Pending')
+        .length;
+  }
+
+  double get totalAmount {
+    double total = 0;
+
+    for (var fee in fees) {
+      total += fee.amount;
+    }
+
+    return total;
+  }
+
+  double get paidAmount {
+    double total = 0;
+
+    for (var fee in fees) {
+      if (fee.status == 'Paid') {
+        total += fee.amount;
+      }
+    }
+
+    return total;
+  }
+
+  double get pendingAmount {
+    double total = 0;
+
+    for (var fee in fees) {
+      if (fee.status == 'Pending') {
+        total += fee.amount;
+      }
+    }
+
+    return total;
   }
 
   @override
   void onClose() {
     studentIdController.dispose();
-    subjectController.dispose();
-    totalMarksController.dispose();
-    obtainedMarksController.dispose();
+    amountController.dispose();
 
     super.onClose();
   }

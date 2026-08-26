@@ -9,205 +9,214 @@ class StudentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final controller =
-    Get.put(StudentController());
+    final controller = Get.put(StudentController());
 
     return Scaffold(
+
       appBar: AppBar(
-        title: const Text('Students'),
+        title: const Text(
+          'Students',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
 
       body: Obx(() {
-
         if (controller.isLoading.value) {
           return const Center(
-            child:
-            CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
         }
 
-        return Column(
-          children: [
+        if (controller.students.isEmpty) {
+          return const Center(
+            child: Column(
+              mainAxisAlignment:
+              MainAxisAlignment.center,
 
-            Padding(
-              padding:
-              const EdgeInsets.all(16),
+              children: [
+                Icon(
+                  Icons.people_outline,
+                  size: 70,
+                  color: Colors.grey,
+                ),
 
-              child: SizedBox(
-                width: double.infinity,
+                SizedBox(height: 15),
 
-                child: ElevatedButton.icon(
-                  onPressed: () async {
-
-                    await Navigator.push(
-                      context,
-
-                      MaterialPageRoute(
-                        builder: (context) =>
-                        const AddStudentScreen(),
-                      ),
-                    );
-
-                    await controller
-                        .getStudents();
-                  },
-
-                  icon:
-                  const Icon(Icons.add),
-
-                  label:
-                  const Text(
-                    'Add Student',
+                Text(
+                  'No Students',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
                   ),
                 ),
-              ),
+
+                SizedBox(height: 5),
+
+                Text(
+                  'Add a student to get started',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
             ),
+          );
+        }
 
-            if (controller.students.isEmpty)
+        return ListView.builder(
+          padding: const EdgeInsets.all(12),
 
-              const Expanded(
-                child: Center(
-                  child:
-                  Text('No Students'),
+          itemCount: controller.students.length,
+
+          itemBuilder: (context, index) {
+            final student =
+            controller.students[index];
+
+            return Card(
+              elevation: 4,
+
+              margin: const EdgeInsets.only(
+                bottom: 12,
+              ),
+
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(15),
+              ),
+
+              child: ListTile(
+                contentPadding:
+                const EdgeInsets.all(12),
+
+                leading: CircleAvatar(
+                  radius: 28,
+
+                  backgroundColor:
+                  Colors.blue.shade100,
+
+                  child: Text(
+                    student.name.isEmpty
+                        ? '?'
+                        : student.name[0]
+                        .toUpperCase(),
+
+                    style: TextStyle(
+                      color: Colors.blue.shade700,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
-              )
 
-            else
+                title: Text(
+                  student.name,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
 
-              Expanded(
-                child:
-                ListView.builder(
+                subtitle: Padding(
+                  padding:
+                  const EdgeInsets.only(top: 6),
 
-                  itemCount:
-                  controller.students.length,
+                  child: Column(
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
 
-                  itemBuilder:
-                      (context, index) {
-
-                    final student =
-                    controller.students[index];
-
-                    return Card(
-                      margin:
-                      const EdgeInsets.all(8),
-
-                      child: ListTile(
-
-                        leading:
-                        CircleAvatar(
-                          child: Text(
-                            student.name
-                                .isEmpty
-                                ? '?'
-                                : student.name[0]
-                                .toUpperCase(),
-                          ),
-                        ),
-
-                        title:
-                        Text(
-                          student.name,
-                          style:
-                          const TextStyle(
-                            fontWeight:
-                            FontWeight.bold,
-                          ),
-                        ),
-
-                        subtitle:
-                        Column(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.start,
-
-                          children: [
-
-                            Text(
-                              'ID: ${student.id}',
-                            ),
-
-                            Text(
-                              'Roll No: '
-                                  '${student.rollNo}',
-                            ),
-
-                            Text(
-                              'Class: '
-                                  '${student.className}',
-                            ),
-
-                            Text(
-                              'Fee: '
-                                  '${student.feeStatus}',
-                            ),
-
-                            Text(
-                              'Attendance: '
-                                  '${student.attendance.toStringAsFixed(1)}%',
-                            ),
-                          ],
-                        ),
-
-                        trailing:
-                        Row(
-                          mainAxisSize:
-                          MainAxisSize.min,
-
-                          children: [
-
-                            IconButton(
-                              icon:
-                              const Icon(
-                                Icons.edit,
-                              ),
-
-                              onPressed:
-                                  () async {
-
-                                await Navigator
-                                    .push(
-                                  context,
-
-                                  MaterialPageRoute(
-                                    builder:
-                                        (context) =>
-                                        AddStudentScreen(
-                                          studentId:
-                                          student.id,
-                                        ),
-                                  ),
-                                );
-
-                                await controller
-                                    .getStudents();
-                              },
-                            ),
-
-                            IconButton(
-                              icon:
-                              const Icon(
-                                Icons.delete,
-                              ),
-
-                              onPressed:
-                                  () async {
-
-                                await controller
-                                    .deleteStudent(
-                                  student.id,
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                    children: [
+                      Text(
+                        'ID: ${student.id}',
                       ),
-                    );
-                  },
+
+                      const SizedBox(height: 3),
+
+                      Text(
+                        'Roll No: ${student.rollNo}',
+                      ),
+
+                      const SizedBox(height: 3),
+
+                      Text(
+                        'Class: ${student.className}',
+                      ),
+                    ],
+                  ),
+                ),
+
+                trailing: Row(
+                  mainAxisSize:
+                  MainAxisSize.min,
+
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.edit,
+                        color: Colors.blue,
+                      ),
+
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                AddStudentScreen(
+                                  studentId:
+                                  student.id,
+                                ),
+                          ),
+                        );
+
+                        controller.getStudents();
+                      },
+                    ),
+
+                    IconButton(
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+
+                      onPressed: () {
+                        controller.deleteStudent(
+                          student.id,
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
-          ],
+            );
+          },
         );
       }),
+
+      floatingActionButton:
+      FloatingActionButton.extended(
+        onPressed: () async {
+          await Navigator.push(
+            context,
+
+            MaterialPageRoute(
+              builder: (context) =>
+              const AddStudentScreen(),
+            ),
+          );
+
+          controller.getStudents();
+        },
+
+        icon: const Icon(Icons.add),
+
+        label: const Text(
+          'Add Student',
+        ),
+      ),
     );
   }
 }

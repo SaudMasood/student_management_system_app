@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/feecontroller.dart';
-
+import 'fee_report_screen.dart';
 
 class FeeScreen extends StatelessWidget {
   const FeeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(FeeController());
+    final controller = Get.put(
+      FeeController(),
+    );
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Fees'),
+        centerTitle: true,
       ),
 
       body: Obx(() {
@@ -23,89 +26,180 @@ class FeeScreen extends StatelessWidget {
           );
         }
 
-        if (controller.fees.isEmpty) {
-          return const Center(
-            child: Text('No Fee Record'),
-          );
-        }
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
 
-        return ListView.builder(
-          itemCount: controller.fees.length,
-          itemBuilder: (context, index) {
-            final fee = controller.fees[index];
+              child: SizedBox(
+                width: double.infinity,
 
-            return Card(
-              child: ListTile(
-                title: Text(
-                  'Student ID: ${fee['student_id']}',
-                ),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const FeeReportScreen(),
+                      ),
+                    );
+                  },
 
-                subtitle: Text(
-                  'Amount: ${fee['amount']}\n'
-                      'Status: ${fee['status']}',
-                ),
+                  icon: const Icon(
+                    Icons.assessment,
+                  ),
 
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-
-                    // EDIT
-                    IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        controller.studentId.text =
-                            fee['student_id'].toString();
-
-                        controller.amount.text =
-                            fee['amount'].toString();
-
-                        controller.isPaid.value =
-                            fee['status'] == 'Paid';
-
-                        feeDialog(
-                          controller,
-                          fee['id'],
-                        );
-                      },
-                    ),
-
-                    // DELETE
-                    IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        Get.defaultDialog(
-                          title: 'Delete Fee',
-                          middleText: 'Are you sure?',
-
-                          onConfirm: () {
-                            controller.deleteFee(
-                              fee['id'],
-                            );
-
-                            Get.back();
-                          },
-
-                          textConfirm: 'Delete',
-                          textCancel: 'Cancel',
-                        );
-                      },
-                    ),
-                  ],
+                  label: const Text(
+                    'Fee Report',
+                  ),
                 ),
               ),
-            );
-          },
+            ),
+
+            if (controller.fees.isEmpty)
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    'No Fee Record',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              )
+            else
+              Expanded(
+                child: ListView.builder(
+                  padding:
+                  const EdgeInsets.all(8),
+
+                  itemCount:
+                  controller.fees.length,
+
+                  itemBuilder:
+                      (context, index) {
+                    final fee =
+                    controller.fees[index];
+
+                    return Card(
+                      margin:
+                      const EdgeInsets.only(
+                        bottom: 8,
+                      ),
+
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Text(
+                            fee.studentId
+                                .toString(),
+                          ),
+                        ),
+
+                        title: Text(
+                          'Student ID: '
+                              '${fee.studentId}',
+                          style:
+                          const TextStyle(
+                            fontWeight:
+                            FontWeight.bold,
+                          ),
+                        ),
+
+                        subtitle: Text(
+                          'Amount: ${fee.amount}\n'
+                              'Status: ${fee.status}',
+                        ),
+
+                        trailing: Row(
+                          mainAxisSize:
+                          MainAxisSize.min,
+
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.blue,
+                              ),
+
+                              onPressed: () {
+                                controller
+                                    .studentIdController
+                                    .text =
+                                    fee.studentId
+                                        .toString();
+
+                                controller
+                                    .amountController
+                                    .text =
+                                    fee.amount
+                                        .toString();
+
+                                controller
+                                    .isPaid
+                                    .value =
+                                    fee.status ==
+                                        'Paid';
+
+                                showFeeDialog(
+                                  context,
+                                  controller,
+                                  fee.id,
+                                );
+                              },
+                            ),
+
+                            IconButton(
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+
+                              onPressed: () {
+                                Get.defaultDialog(
+                                  title:
+                                  'Delete Fee',
+
+                                  middleText:
+                                  'Are you sure?',
+
+                                  textCancel:
+                                  'Cancel',
+
+                                  textConfirm:
+                                  'Delete',
+
+                                  onConfirm: () {
+                                    controller
+                                        .deleteFee(
+                                      fee.id,
+                                    );
+
+                                    Get.back();
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+          ],
         );
       }),
 
-      // ADD
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:
+      FloatingActionButton(
         onPressed: () {
-          controller.studentId.clear();
-          controller.amount.clear();
-          controller.isPaid.value = false;
+          controller.clearFields();
 
-          feeDialog(controller, null);
+          showFeeDialog(
+            context,
+            controller,
+            null,
+          );
         },
 
         child: const Icon(Icons.add),
@@ -113,110 +207,114 @@ class FeeScreen extends StatelessWidget {
     );
   }
 
-  // ADD / UPDATE DIALOG
-  void feeDialog(
+  void showFeeDialog(
+      BuildContext context,
       FeeController controller,
       int? id,
       ) {
-    Get.dialog(
-      AlertDialog(
-        title: Text(
-          id == null ? 'Add Fee' : 'Update Fee',
-        ),
+    showDialog(
+      context: context,
 
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            id == null
+                ? 'Add Fee'
+                : 'Update Fee',
+          ),
 
-            TextField(
-              controller: controller.studentId,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Student ID',
-              ),
-            ),
+          content: Column(
+            mainAxisSize:
+            MainAxisSize.min,
 
-            TextField(
-              controller: controller.amount,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Amount',
-              ),
-            ),
+            children: [
+              TextField(
+                controller:
+                controller
+                    .studentIdController,
 
-            Obx(
-                  () => SwitchListTile(
-                title: Text(
-                  controller.isPaid.value
-                      ? 'Paid'
-                      : 'Pending',
+                keyboardType:
+                TextInputType.number,
+
+                decoration:
+                const InputDecoration(
+                  labelText: 'Student ID',
+                  border:
+                  OutlineInputBorder(),
                 ),
+              ),
 
-                value: controller.isPaid.value,
+              const SizedBox(height: 12),
 
-                onChanged: (value) {
-                  controller.isPaid.value = value;
-                },
+              TextField(
+                controller:
+                controller
+                    .amountController,
+
+                keyboardType:
+                TextInputType.number,
+
+                decoration:
+                const InputDecoration(
+                  labelText: 'Amount',
+                  border:
+                  OutlineInputBorder(),
+                ),
+              ),
+
+              Obx(
+                    () => SwitchListTile(
+                  title: Text(
+                    controller.isPaid.value
+                        ? 'Paid'
+                        : 'Pending',
+                  ),
+
+                  value:
+                  controller.isPaid.value,
+
+                  onChanged: (value) {
+                    controller
+                        .isPaid
+                        .value = value;
+                  },
+                ),
+              ),
+            ],
+          ),
+
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+
+              child:
+              const Text('Cancel'),
+            ),
+
+            ElevatedButton(
+              onPressed: () async {
+                if (id == null) {
+                  await controller
+                      .addFee();
+                } else {
+                  await controller
+                      .updateFee(id);
+                }
+
+                Navigator.pop(context);
+              },
+
+              child: Text(
+                id == null
+                    ? 'Add Fee'
+                    : 'Update',
               ),
             ),
           ],
-        ),
-
-        actions: [
-
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: const Text('Cancel'),
-          ),
-
-          ElevatedButton(
-            onPressed: () {
-
-              if (id == null) {
-                // ADD
-                controller.addFee(
-                  studentId: int.parse(
-                    controller.studentId.text,
-                  ),
-
-                  amount: double.parse(
-                    controller.amount.text,
-                  ),
-
-                  status: controller.isPaid.value
-                      ? 'Paid'
-                      : 'Pending',
-                );
-              } else {
-                // UPDATE
-                controller.updateFee(
-                  id: id,
-
-                  studentId: int.parse(
-                    controller.studentId.text,
-                  ),
-
-                  amount: double.parse(
-                    controller.amount.text,
-                  ),
-
-                  status: controller.isPaid.value
-                      ? 'Paid'
-                      : 'Pending',
-                );
-              }
-
-              Get.back();
-            },
-
-            child: Text(
-              id == null ? 'Add Fee' : 'Update',
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

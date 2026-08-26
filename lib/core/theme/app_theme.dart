@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
+
 import 'app_colors.dart';
 
 class AppTheme {
-  static ThemeData theme = ThemeData(
+
+  static ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
+
     primarySwatch: Colors.blue,
-    scaffoldBackgroundColor: AppColors.background,
+
+    scaffoldBackgroundColor:
+    AppColors.background,
 
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.primary,
       foregroundColor: AppColors.white,
     ),
+  );
 
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: AppColors.white,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+  static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+
+    primarySwatch: Colors.blue,
+
+    scaffoldBackgroundColor:
+    const Color(0xFF121212),
+
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xFF1E1E1E),
+      foregroundColor: AppColors.white,
     ),
   );
 }

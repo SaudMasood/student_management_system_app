@@ -31,6 +31,7 @@ class MarksController extends GetxController {
     getMarks();
   }
 
+  // GET MARKS
   Future<void> getMarks() async {
     isLoading.value = true;
 
@@ -47,16 +48,33 @@ class MarksController extends GetxController {
     isLoading.value = false;
   }
 
+  // ADD MARKS
   Future<void> addMarks() async {
+
+    if (studentIdController.text.isEmpty ||
+        subjectController.text.isEmpty ||
+        totalMarksController.text.isEmpty ||
+        obtainedMarksController.text.isEmpty) {
+
+      Get.snackbar(
+        'Error',
+        'Please fill all fields',
+      );
+
+      return;
+    }
 
     await db.addMarks(
       studentId: int.parse(
         studentIdController.text,
       ),
+
       subject: subjectController.text,
+
       totalMarks: int.parse(
         totalMarksController.text,
       ),
+
       obtainedMarks: int.parse(
         obtainedMarksController.text,
       ),
@@ -69,17 +87,35 @@ class MarksController extends GetxController {
     Get.back();
   }
 
+  // UPDATE MARKS
   Future<void> updateMarks(int id) async {
+
+    if (studentIdController.text.isEmpty ||
+        subjectController.text.isEmpty ||
+        totalMarksController.text.isEmpty ||
+        obtainedMarksController.text.isEmpty) {
+
+      Get.snackbar(
+        'Error',
+        'Please fill all fields',
+      );
+
+      return;
+    }
 
     await db.updateMarks(
       id: id,
+
       studentId: int.parse(
         studentIdController.text,
       ),
+
       subject: subjectController.text,
+
       totalMarks: int.parse(
         totalMarksController.text,
       ),
+
       obtainedMarks: int.parse(
         obtainedMarksController.text,
       ),
@@ -92,6 +128,7 @@ class MarksController extends GetxController {
     Get.back();
   }
 
+  // DELETE MARKS
   Future<void> deleteMarks(int id) async {
 
     await db.deleteMarks(id);
@@ -99,6 +136,7 @@ class MarksController extends GetxController {
     await getMarks();
   }
 
+  // CLEAR
   void clearFields() {
     studentIdController.clear();
     subjectController.clear();
@@ -108,6 +146,7 @@ class MarksController extends GetxController {
 
   @override
   void onClose() {
+
     studentIdController.dispose();
     subjectController.dispose();
     totalMarksController.dispose();
