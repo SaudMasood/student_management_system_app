@@ -1,16 +1,45 @@
+<div align="center">
+
 # 🏫 School Management System
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=2E86DE&center=true&vCenter=true&width=650&lines=Offline+School+Management+System;Built+with+Flutter+%2B+GetX+%2B+SQLite;Week+4+Internship+Project+%40+Owasoft+Technologies" alt="Typing SVG" />
+
+<br/>
+
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![GetX](https://img.shields.io/badge/GetX-7C4DFF?style=for-the-badge&logo=flutter&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?style=flat-square&logo=android&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completed-success?style=flat-square)
+![Architecture](https://img.shields.io/badge/Architecture-Feature--Based-orange?style=flat-square)
+![Internship](https://img.shields.io/badge/Internship-Week%204-blueviolet?style=flat-square)
+
+</div>
+
+---
 
 A professional **Offline School Management System** built with **Flutter** as part of my **Week 4 Flutter Development Internship at Owasoft Technologies Pvt. Ltd.**
 
-The application provides a complete solution for managing school-related records including **students, teachers, classes, attendance, fees, marks, exams, reports, and admin authentication**.
+The application provides a complete solution for managing school-related records including **students, teachers, classes, attendance, fees, marks, exams, reports, and admin authentication** — all stored locally using **SQLite (Sqflite)** and managed reactively with **GetX**.
 
-The application uses **Sqflite/SQLite for local data storage** and **GetX for state management**, making it suitable for offline school administration.
+<div align="center">
+
+```text
+┌─────────────────────────────────────────────┐
+│   🔐 Auth  →  🏠 Home  →  📊 Manage & Report │
+└─────────────────────────────────────────────┘
+```
+
+</div>
 
 ---
 
 ## 📱 Project Overview
 
-The **School Management System** is designed to simplify everyday school administration tasks through a clean and easy-to-use Flutter application.
+The **School Management System** is designed to simplify everyday school administration tasks through a clean, offline-first Flutter application.
 
 The system allows an administrator to:
 
@@ -32,24 +61,30 @@ The system allows an administrator to:
 
 ## 🎯 Internship Information
 
-**Internship:** Flutter Development Internship
-**Company:** Owasoft Technologies Pvt. Ltd.
-**Week:** Week 4
-**Project:** School Management System
-**Platform:** Flutter / Android
-**Database:** SQLite using Sqflite
-**State Management:** GetX
-**Architecture:** Feature-Based Structure
+<div align="center">
+
+| | |
+|---|---|
+| **Internship** | Flutter Development Internship |
+| **Company** | Owasoft Technologies Pvt. Ltd. |
+| **Week** | Week 4 |
+| **Project** | School Management System |
+| **Platform** | Flutter / Android |
+| **Database** | SQLite using Sqflite |
+| **State Management** | GetX |
+| **Architecture** | Feature-Based Structure |
+
+</div>
 
 ---
 
 ## ✨ Features
 
-### 🔐 Admin Authentication
+<details open>
+<summary><b>🔐 Admin Authentication</b></summary>
+<br>
 
 The application includes a simple local admin authentication system.
-
-Features:
 
 - Admin Signup
 - Admin Login
@@ -61,25 +96,17 @@ Features:
 
 Admin information is stored locally in the SQLite database.
 
----
+</details>
 
-### 👨‍🎓 Student Management
+<details>
+<summary><b>👨‍🎓 Student Management</b></summary>
+<br>
 
 The Student module allows the administrator to manage student records.
 
-Features:
-
-- Add Student
-- View Students
-- Update Student
-- Delete Student
-- Student ID
-- Student Name
-- Roll Number
-- Class Name
+- Add / View / Update / Delete Student
+- Student ID, Name, Roll Number, Class Name
 - Student Report
-
-Example student information:
 
 ```text
 Student ID
@@ -88,84 +115,60 @@ Roll Number
 Class
 ```
 
----
+</details>
 
-### 👨‍🏫 Teacher Management
+<details>
+<summary><b>👨‍🏫 Teacher Management</b></summary>
+<br>
 
 The Teacher module manages teacher records.
 
-Features:
-
-- Add Teacher
-- View Teachers
-- Update Teacher
-- Delete Teacher
-- Teacher ID
-- Teacher Name
-- Subject
-- Phone Number
+- Add / View / Update / Delete Teacher
+- Teacher ID, Name, Subject, Phone Number
 - Teacher Report
 
 Teacher reports provide an overview of registered teachers and their assigned subjects.
 
----
+</details>
 
-### 🏫 Class Management
+<details>
+<summary><b>🏫 Class Management</b></summary>
+<br>
 
 The Class module allows school administrators to manage classes.
 
-Features:
-
-- Add Class
-- View Classes
-- Update Class
-- Delete Class
-- Class ID
-- Class Name
-- Assigned Teacher
+- Add / View / Update / Delete Class
+- Class ID, Class Name, Assigned Teacher
 - Class Report
 
----
+</details>
 
-### 📋 Attendance Management
+<details>
+<summary><b>📋 Attendance Management</b></summary>
+<br>
 
 The Attendance module is used to record student attendance.
 
-Features:
-
-- Add Attendance
-- View Attendance
-- Update Attendance
-- Delete Attendance
-- Student ID
-- Attendance Status
+- Add / View / Update / Delete Attendance
+- Student ID, Attendance Status
 - Attendance Report
-
-Example:
 
 ```text
 Student ID: 101
 Status: Present
 ```
 
----
+</details>
 
-### 💰 Fee Management
+<details>
+<summary><b>💰 Fee Management</b></summary>
+<br>
 
 The Fee module manages student fee records.
 
-Features:
-
-- Add Fee
-- View Fees
-- Update Fee
-- Delete Fee
-- Student ID
-- Fee Amount
-- Payment Status
+- Add / View / Update / Delete Fee
+- Student ID, Fee Amount, Payment Status
 - Student Fee Records
-
-Example:
 
 ```text
 Student ID: 101
@@ -173,26 +176,17 @@ Amount: 5000
 Status: Paid
 ```
 
----
+</details>
 
-### 📝 Marks Management
+<details>
+<summary><b>📝 Marks Management</b></summary>
+<br>
 
 The Marks module manages academic marks.
 
-Features:
-
-- Add Marks
-- View Marks
-- Update Marks
-- Delete Marks
-- Student ID
-- Subject
-- Total Marks
-- Obtained Marks
-- Marks Report
-- Average Marks Calculation
-
-Example:
+- Add / View / Update / Delete Marks
+- Student ID, Subject, Total Marks, Obtained Marks
+- Marks Report + Average Marks Calculation
 
 ```text
 Student ID: 101
@@ -201,64 +195,44 @@ Total Marks: 100
 Obtained Marks: 85
 ```
 
----
+</details>
 
-### 📚 Examination Management
+<details>
+<summary><b>📚 Examination Management</b></summary>
+<br>
 
-The application includes an examination-related module for managing academic examination information.
+The application includes an examination-related module for managing academic examination information. Exam functionality is integrated into the feature-based project structure and works with the local database architecture.
 
-The exam functionality is integrated into the feature-based project structure and works with the local database architecture.
+</details>
 
----
-
-### 📊 Reports
-
-The application provides reporting screens for different areas of the school system.
+<details>
+<summary><b>📊 Reports</b></summary>
+<br>
 
 Available reports include:
 
-- Student Report
-- Teacher Report
-- Class Report
-- Attendance Report
-- Fee Report
-- Marks Report
+- Student Report · Teacher Report · Class Report
+- Attendance Report · Fee Report · Marks Report
 - Overall Reports
 
-Reports provide useful information from the locally stored database.
+</details>
 
----
+<details>
+<summary><b>⚙️ Settings</b></summary>
+<br>
 
-### ⚙️ Settings
-
-The Settings module provides application configuration options.
-
-Features:
-
-- School Name
-- Phone Number
-- Address
+- School Name, Phone Number, Address
 - Save Settings
-- Light Mode
-- Dark Mode
+- Light Mode / Dark Mode
 - About Application
 
----
+</details>
 
-### 🌙 Light & Dark Mode
+<details>
+<summary><b>🌙 Light & Dark Mode</b></summary>
+<br>
 
-The application supports both:
-
-- ☀️ Light Mode
-- 🌙 Dark Mode
-
-Theme configuration is centralized inside:
-
-```text
-lib/core/theme/
-```
-
-Files:
+Theme configuration is centralized inside `lib/core/theme/`:
 
 ```text
 app_colors.dart
@@ -267,44 +241,37 @@ app_theme.dart
 
 The theme can be changed from the Settings screen.
 
----
+</details>
 
-### 🧭 Navigation Drawer
+<details>
+<summary><b>🧭 Navigation Drawer</b></summary>
+<br>
 
-The Home Screen includes a navigation drawer for quick access to application modules.
+Quick access to: 🏠 Home · 👨‍🎓 Students · 👨‍🏫 Teachers · 🏫 Classes · 📋 Attendance · 💰 Fees · 📝 Marks · 📊 Reports · ⚙️ Settings · ℹ️ About · 🚪 Logout
 
-The drawer provides navigation to areas such as:
+Designed with scrolling and SafeArea support for better usability across screen sizes.
 
-- 🏠 Home
-- 👨‍🎓 Students
-- 👨‍🏫 Teachers
-- 🏫 Classes
-- 📋 Attendance
-- 💰 Fees
-- 📝 Marks
-- 📊 Reports
-- ⚙️ Settings
-- ℹ️ About
-- 🚪 Logout
-
-The drawer is designed with scrolling and SafeArea support for better usability on different screen sizes.
+</details>
 
 ---
 
 ## 🛠️ Technologies Used
 
-| Technology      | Purpose                 |
-| --------------- | ----------------------- |
-| Flutter         | Application development |
-| Dart            | Programming language    |
-| GetX            | State management        |
-| Sqflite         | Local SQLite database   |
-| SQLite          | Local data storage      |
-| Material Design | UI components           |
-| Android Studio  | Development              |
-| VS Code         | Development              |
-| Git             | Version control          |
-| GitHub          | Source code management   |
+<div align="center">
+
+| Technology | Purpose |
+|---|---|
+| ![Flutter](https://img.shields.io/badge/-Flutter-02569B?style=flat-square&logo=flutter&logoColor=white) | Application development |
+| ![Dart](https://img.shields.io/badge/-Dart-0175C2?style=flat-square&logo=dart&logoColor=white) | Programming language |
+| ![GetX](https://img.shields.io/badge/-GetX-7C4DFF?style=flat-square) | State management |
+| ![Sqflite](https://img.shields.io/badge/-Sqflite-003B57?style=flat-square&logo=sqlite&logoColor=white) | Local SQLite database |
+| ![Material](https://img.shields.io/badge/-Material%20Design-757575?style=flat-square&logo=materialdesign&logoColor=white) | UI components |
+| ![Android Studio](https://img.shields.io/badge/-Android%20Studio-3DDC84?style=flat-square&logo=androidstudio&logoColor=white) | Development |
+| ![VS Code](https://img.shields.io/badge/-VS%20Code-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white) | Development |
+| ![Git](https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white) | Version control |
+| ![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white) | Source code management |
+
+</div>
 
 ---
 
@@ -407,15 +374,14 @@ Each feature is separated into different responsibilities.
 
 The application uses **SQLite through Sqflite** for offline storage.
 
-Main database file:
-
-```text
-lib/database/database_helper.dart
-```
-
+Main database file: `lib/database/database_helper.dart`
 Database name: `school.db`
 
 ### 📊 Database Tables
+
+<table>
+<tr>
+<td valign="top">
 
 **Students**
 ```text
@@ -426,37 +392,11 @@ students
 └── class_name
 ```
 
-**Teachers**
-```text
-teachers
-├── id
-├── name
-├── subject
-└── phone
-```
-
-**Classes**
-```text
-classes
-├── id
-├── name
-└── teacher
-```
-
 **Attendance**
 ```text
 attendance
 ├── id
 ├── student_id
-└── status
-```
-
-**Fees**
-```text
-fees
-├── id
-├── student_id
-├── amount
 └── status
 ```
 
@@ -470,6 +410,27 @@ marks
 └── obtained_marks
 ```
 
+</td>
+<td valign="top">
+
+**Teachers**
+```text
+teachers
+├── id
+├── name
+├── subject
+└── phone
+```
+
+**Fees**
+```text
+fees
+├── id
+├── student_id
+├── amount
+└── status
+```
+
 **Admin**
 ```text
 admin
@@ -479,11 +440,24 @@ admin
 └── password
 ```
 
+</td>
+<td valign="top">
+
+**Classes**
+```text
+classes
+├── id
+├── name
+└── teacher
+```
+
+</td>
+</tr>
+</table>
+
 ---
 
 ## 🔄 CRUD Operations
-
-The project implements CRUD operations throughout the application:
 
 ```text
 C → Create
@@ -491,8 +465,6 @@ R → Read
 U → Update
 D → Delete
 ```
-
-Flow example:
 
 ```text
 Add Student → Save to SQLite → Read Students → Display List → Update / Delete
@@ -526,13 +498,21 @@ Get.find<StudentController>();
 
 ## 🎨 UI & Design
 
-The application follows a clean Material Design interface, using Cards, ListTiles, AppBars, Floating Action Buttons, Dialogs, TextFields, Buttons, a Navigation Drawer, Switches, Circular Progress Indicators, empty-state screens, and report cards — with centralized colors and themes for consistency.
+The application follows a clean Material Design interface with **smooth micro-interactions** layered on top of standard widgets:
+
+- 🌗 Animated theme transition between Light and Dark Mode (`AnimatedTheme` / `AnimatedSwitcher`)
+- 📥 `Hero` and fade transitions between list screens and detail/report screens
+- 🎬 `AnimatedContainer` / `AnimatedOpacity` for card taps and state changes
+- ⏳ Skeleton/shimmer-style loading indicators while reading from SQLite
+- 🧭 Slide-in Navigation Drawer with staggered menu item entrance
+- ➕ Scale/rotate animation on the Floating Action Button when opening Add forms
+- ✅ Snackbar/Toast animations (via `GetX` `Get.snackbar`) for success & error feedback
+
+UI elements: Cards, ListTiles, AppBars, Floating Action Buttons, Dialogs, TextFields, Buttons, Navigation Drawer, Switches, Circular Progress Indicators, empty-state screens, and report cards — with centralized colors and themes for consistency.
 
 ---
 
 ## 📁 Core Layer
-
-The `core` folder contains reusable application-wide components:
 
 ```text
 core/
@@ -599,16 +579,12 @@ Start Application → Splash → Admin Login → Enter Email + Password
                             → Invalid → Error Message
 ```
 
----
-
 ## 👨‍🎓 Student Management Flow
 
 ```text
 Student Screen → Add Student → Enter Information → Save to SQLite
    → Student List → Edit / Delete → Student Report
 ```
-
----
 
 ## 📊 Reporting Flow
 
@@ -617,42 +593,31 @@ Home / Reports → Select Module → Read SQLite Data
    → Calculate / Display Data → Generate Report
 ```
 
-Reports can provide information such as total students, total teachers, classes, attendance records, fee records, marks records, average marks, teacher subjects, and student information.
-
----
-
 ## 🌙 Theme Flow
 
 ```text
 Settings → Appearance → Light Mode / Dark Mode
-   → GetX Controller → MaterialApp ThemeMode → Application Theme Changes
+   → GetX Controller → MaterialApp ThemeMode (Animated) → Application Theme Changes
 ```
 
 ---
 
 ## 🧪 Testing
 
-**Authentication:** Admin Signup · Admin Login · Invalid Login · Logout
-
-**Students:** Add · View · Update · Delete · Report
-
-**Teachers:** Add · View · Update · Delete · Report
-
-**Classes:** Add · View · Update · Delete
-
-**Attendance:** Add · View · Update · Delete · Report
-
-**Fees:** Add · View · Update · Delete
-
-**Marks:** Add · View · Update · Delete · Average Report
-
-**Settings:** School Information · Theme Switching · About Section
+| Module | Add | View | Update | Delete | Report |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Authentication | ✅ Signup | ✅ Login | — | — | ✅ Logout |
+| Students | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Teachers | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Classes | ✅ | ✅ | ✅ | ✅ | — |
+| Attendance | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Fees | ✅ | ✅ | ✅ | ✅ | — |
+| Marks | ✅ | ✅ | ✅ | ✅ | ✅ Avg |
+| Settings | ✅ Info | — | ✅ Theme | — | ✅ About |
 
 ---
 
 ## 💡 Key Learning Outcomes
-
-Through this project, I practiced and improved my understanding of:
 
 - Flutter application architecture and feature-based project structure
 - Dart OOP
@@ -661,7 +626,7 @@ Through this project, I practiced and improved my understanding of:
 - Database table design and model classes
 - Controller-based architecture
 - Form handling and input validation
-- Navigation and the Navigation Drawer
+- Navigation, Navigation Drawer, and screen/theme animations
 - Dialogs, reports, and calculations
 - Light/Dark theme implementation
 - Reusable widgets
@@ -672,20 +637,20 @@ Through this project, I practiced and improved my understanding of:
 
 ## 📌 Project Highlights
 
-```text
-✅ Offline First Application
-✅ Local SQLite Database
-✅ Admin Authentication
-✅ CRUD Operations
-✅ Feature-Based Architecture
-✅ GetX State Management
-✅ Multiple Management Modules
-✅ Reports
-✅ Light & Dark Theme
-✅ Navigation Drawer
-✅ Reusable Components
-✅ Responsive Material UI
-```
+<div align="center">
+
+![](https://img.shields.io/badge/✅-Offline%20First%20Application-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-Local%20SQLite%20Database-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-Admin%20Authentication-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-CRUD%20Operations-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-Feature--Based%20Architecture-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-GetX%20State%20Management-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-Animated%20UI%20Transitions-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-Light%20%26%20Dark%20Theme-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-Navigation%20Drawer-2E86DE?style=flat-square)
+![](https://img.shields.io/badge/✅-Reports-2E86DE?style=flat-square)
+
+</div>
 
 ---
 
@@ -696,7 +661,7 @@ Through this project, I practiced and improved my understanding of:
 - ☁️ Cloud database synchronization
 - 🔥 Firebase authentication
 - 📄 PDF report generation
-- 📊 Advanced analytics dashboard
+- 📊 Advanced analytics dashboard with animated charts
 - 📈 Attendance charts
 - 📚 Subject management
 - 🔎 Search and filtering
@@ -704,6 +669,7 @@ Through this project, I practiced and improved my understanding of:
 - 🔔 Notifications
 - 💾 Backup and restore
 - 🌐 Online synchronization
+- ✨ Lottie-based onboarding and empty-state animations
 
 ---
 
@@ -742,18 +708,27 @@ This project was developed as part of my **Week 4 Flutter Development Internship
 **Week 4 Focus:**
 ```text
 Flutter → CRUD Operations → SQLite / Sqflite → GetX State Management
-   → Feature-Based Architecture → Reports → Complete School Management Application
+   → Feature-Based Architecture → UI Animations → Reports → Complete School Management Application
 ```
 
 ---
 
 ## 👨‍💻 Developer
 
+<div align="center">
+
 **Saud Masood**
-BS Computer Science Student
+BS Computer Science Graduate
 Flutter Developer | Mobile Application Developer
 
-**Technical Interests:** Flutter & Dart · Mobile Application Development · Firebase · SQLite / Sqflite · GetX · REST APIs · AI/ML Integration · Software Development
+![Flutter](https://img.shields.io/badge/-Flutter-02569B?style=flat-square&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/-Dart-0175C2?style=flat-square&logo=dart&logoColor=white)
+![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black)
+![SQLite](https://img.shields.io/badge/-SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
+![GetX](https://img.shields.io/badge/-GetX-7C4DFF?style=flat-square)
+![REST API](https://img.shields.io/badge/-REST%20APIs-25D366?style=flat-square)
+
+</div>
 
 ---
 
@@ -763,11 +738,13 @@ This project is licensed under the MIT License.
 
 ---
 
+<div align="center">
+
 ## ⭐ Support
 
 If you find this project useful or interesting, consider giving the repository a ⭐ on GitHub.
 
----
-
 **School Management System — Week 4 Flutter Internship Project**
 Built with ❤️ using Flutter and Dart.
+
+</div>
