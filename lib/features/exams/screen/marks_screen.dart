@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/markscontroller.dart';
+import 'marksreport.dart';
 
 class MarksScreen extends StatelessWidget {
   const MarksScreen({super.key});
@@ -13,7 +14,6 @@ class MarksScreen extends StatelessWidget {
     );
 
     return Scaffold(
-
       appBar: AppBar(
         title: const Text(
           'Marks',
@@ -24,149 +24,193 @@ class MarksScreen extends StatelessWidget {
         centerTitle: true,
       ),
 
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
 
-        if (controller.marks.isEmpty) {
-          return const Center(
-            child: Text(
-              'No Marks',
-              style: TextStyle(
-                fontSize: 18,
+            child: SizedBox(
+              width: double.infinity,
+
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const MarksReportScreen(),
+                    ),
+                  );
+                },
+
+                icon: const Icon(
+                  Icons.description,
+                ),
+
+                label: const Text(
+                  'Marks Report',
+                ),
               ),
             ),
-          );
-        }
+          ),
 
-        return ListView.builder(
-          padding: const EdgeInsets.all(8),
+          Expanded(
+            child: Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(
+                  child:
+                  CircularProgressIndicator(),
+                );
+              }
 
-          itemCount:
-          controller.marks.length,
-
-          itemBuilder: (context, index) {
-            final mark =
-            controller.marks[index];
-
-            return Card(
-              elevation: 3,
-
-              margin: const EdgeInsets.only(
-                bottom: 10,
-              ),
-
-              child: ListTile(
-                contentPadding:
-                const EdgeInsets.all(12),
-
-                leading: CircleAvatar(
-                  backgroundColor:
-                  Colors.blue.shade100,
-
+              if (controller.marks.isEmpty) {
+                return const Center(
                   child: Text(
-                    mark.studentId
-                        .toString(),
-
+                    'No Marks',
                     style: TextStyle(
-                      color:
-                      Colors.blue.shade700,
-                      fontWeight:
-                      FontWeight.bold,
+                      fontSize: 18,
                     ),
                   ),
-                ),
+                );
+              }
 
-                title: Text(
-                  mark.subject,
+              return ListView.builder(
+                padding:
+                const EdgeInsets.all(8),
 
-                  style: const TextStyle(
-                    fontWeight:
-                    FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
+                itemCount:
+                controller.marks.length,
 
-                subtitle: Padding(
-                  padding:
-                  const EdgeInsets.only(
-                    top: 5,
-                  ),
+                itemBuilder:
+                    (context, index) {
+                  final mark =
+                  controller.marks[index];
 
-                  child: Text(
-                    'Student ID: '
-                        '${mark.studentId}\n'
-                        'Marks: '
-                        '${mark.obtainedMarks} / '
-                        '${mark.totalMarks}',
-                  ),
-                ),
+                  return Card(
+                    elevation: 3,
 
-                trailing: Row(
-                  mainAxisSize:
-                  MainAxisSize.min,
+                    margin:
+                    const EdgeInsets.only(
+                      bottom: 10,
+                    ),
 
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.edit,
-                        color: Colors.blue,
+                    child: ListTile(
+                      contentPadding:
+                      const EdgeInsets.all(
+                        12,
                       ),
 
-                      onPressed: () {
-                        controller
-                            .studentIdController
-                            .text =
-                            mark.studentId
-                                .toString();
+                      leading: CircleAvatar(
+                        backgroundColor:
+                        Colors.blue.shade100,
 
-                        controller
-                            .subjectController
-                            .text =
-                            mark.subject;
+                        child: Text(
+                          mark.studentId
+                              .toString(),
 
-                        controller
-                            .totalMarksController
-                            .text =
-                            mark.totalMarks
-                                .toString();
-
-                        controller
-                            .obtainedMarksController
-                            .text =
-                            mark.obtainedMarks
-                                .toString();
-
-                        showMarksDialog(
-                          context,
-                          controller,
-                          mark.id,
-                        );
-                      },
-                    ),
-
-                    IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
+                          style: TextStyle(
+                            color: Colors
+                                .blue.shade700,
+                            fontWeight:
+                            FontWeight.bold,
+                          ),
+                        ),
                       ),
 
-                      onPressed: () {
-                        controller.deleteMarks(
-                          mark.id,
-                        );
-                      },
+                      title: Text(
+                        mark.subject,
+
+                        style:
+                        const TextStyle(
+                          fontWeight:
+                          FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                      ),
+
+                      subtitle: Padding(
+                        padding:
+                        const EdgeInsets
+                            .only(
+                          top: 5,
+                        ),
+
+                        child: Text(
+                          'Student ID: '
+                              '${mark.studentId}\n'
+                              'Marks: '
+                              '${mark.obtainedMarks} / '
+                              '${mark.totalMarks}',
+                        ),
+                      ),
+
+                      trailing: Row(
+                        mainAxisSize:
+                        MainAxisSize.min,
+
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Colors.blue,
+                            ),
+
+                            onPressed: () {
+                              controller
+                                  .studentIdController
+                                  .text =
+                                  mark.studentId
+                                      .toString();
+
+                              controller
+                                  .subjectController
+                                  .text =
+                                  mark.subject;
+
+                              controller
+                                  .totalMarksController
+                                  .text =
+                                  mark.totalMarks
+                                      .toString();
+
+                              controller
+                                  .obtainedMarksController
+                                  .text =
+                                  mark.obtainedMarks
+                                      .toString();
+
+                              showMarksDialog(
+                                context,
+                                controller,
+                                mark.id,
+                              );
+                            },
+                          ),
+
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+
+                            onPressed: () {
+                              controller
+                                  .deleteMarks(
+                                mark.id,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      }),
+                  );
+                },
+              );
+            }),
+          ),
+        ],
+      ),
 
       floatingActionButton:
       FloatingActionButton.extended(

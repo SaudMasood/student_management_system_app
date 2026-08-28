@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:student_management_system/features/auth/screen/login_screen.dart';
 
 import '../../home/screen/home_screen.dart';
 
@@ -26,7 +27,7 @@ class _SplashScreenState
           context,
           MaterialPageRoute(
             builder: (context) =>
-            const HomeScreen(),
+            const LoginScreen(),
           ),
         );
       },

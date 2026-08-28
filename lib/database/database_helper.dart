@@ -18,7 +18,6 @@ class DatabaseHelper {
       path,
       version: 1,
       onCreate: (database, version) async {
-        // STUDENTS
         await database.execute('''
           CREATE TABLE students(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +27,6 @@ class DatabaseHelper {
           )
         ''');
 
-        // TEACHERS
         await database.execute('''
           CREATE TABLE teachers(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,7 +36,6 @@ class DatabaseHelper {
           )
         ''');
 
-        // CLASSES
         await database.execute('''
           CREATE TABLE classes(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,7 +44,6 @@ class DatabaseHelper {
           )
         ''');
 
-        // ATTENDANCE
         await database.execute('''
           CREATE TABLE attendance(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,7 +52,6 @@ class DatabaseHelper {
           )
         ''');
 
-        // FEES
         await database.execute('''
           CREATE TABLE fees(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -66,7 +61,6 @@ class DatabaseHelper {
           )
         ''');
 
-        // MARKS
         await database.execute('''
           CREATE TABLE marks(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -76,11 +70,66 @@ class DatabaseHelper {
             obtained_marks INTEGER
           )
         ''');
+        await database.execute('''
+  CREATE TABLE admin (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT,
+    password TEXT
+  )
+''');
       },
     );
   }
 
-  // ================= STUDENT =================
+
+
+  //ADmin
+
+  Future<int> addAdmin({
+    required String name,
+    required String email,
+    required String password,
+
+}) async
+  {
+    return await db!.insert(
+      'admin',
+      {
+        'name': name,
+        'email': email,
+        'password': password,
+      }
+    );
+  }
+
+
+  //getadmin
+  Future<Map<String, dynamic>?> getAdmin(
+      String email,
+      String password,
+      ) async {
+    await initDatabase();
+
+    final result = await db!.query(
+      'admin',
+      where: 'email = ? AND password = ?',
+      whereArgs: [
+        email,
+        password,
+      ],
+    );
+
+    if (result.isNotEmpty) {
+      return result.first;
+    }
+
+    return null;
+  }
+
+
+
+  //student
 
   Future<int> addStudent({
     required String name,
@@ -151,8 +200,7 @@ class DatabaseHelper {
     );
   }
 
-  // ================= TEACHER =================
-
+//teacher
   Future<int> addTeacher({
     required String name,
     required String subject,
@@ -206,8 +254,7 @@ class DatabaseHelper {
     );
   }
 
-  // ================= CLASS =================
-
+//class
   Future<int> addClass({
     required String name,
     required String teacher,
@@ -257,8 +304,7 @@ class DatabaseHelper {
     );
   }
 
-  // ================= ATTENDANCE =================
-
+//attendence
   Future<int> addAttendance({
     required int studentId,
     required String status,
@@ -308,8 +354,7 @@ class DatabaseHelper {
     );
   }
 
-  // ================= FEES =================
-
+//fee
   Future<int> addFee({
     required int studentId,
     required double amount,
@@ -375,8 +420,7 @@ class DatabaseHelper {
     );
   }
 
-  // ================= MARKS =================
-
+//mark
   Future<int> addMarks({
     required int studentId,
     required String subject,

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     Get.find<SettingsController>();
 
     return Obx(
-          () => MaterialApp(
+          () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
 
         title:

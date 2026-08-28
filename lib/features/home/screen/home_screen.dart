@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
 import '../../attendance/screen/attendance_screen.dart';
+import '../../auth/screen/login_screen.dart';
 import '../../classes/screen/classes_screen.dart';
 import '../../exams/screen/marks_screen.dart';
 import '../../fees/screen/fees_screen.dart';
 import '../../reports/screen/reports_screen.dart';
+import '../../settings/controller/seetingcontroller.dart';
 import '../../settings/screen/settings_screen.dart';
 import '../../students/screen/students_screen.dart';
 import '../../teachers/screen/teachers_screen.dart';
@@ -14,6 +18,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final controller =
+    Get.find<SettingsController>();
+
     final List<Map<String, dynamic>> modules = [
       {
         'title': 'Students',
@@ -67,7 +75,6 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-
       appBar: AppBar(
         title: const Text(
           'School Management',
@@ -75,9 +82,362 @@ class HomeScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
-      ),
 
+        centerTitle: true,
+
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                  const SettingsScreen(),
+                ),
+              );
+            },
+
+            icon: const Icon(
+              Icons.settings,
+            ),
+          ),
+        ],
+
+      ),
+      drawer: SafeArea(
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+        
+            children: [
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.blue,
+                      Colors.indigo,
+                    ],
+                  ),
+                ),
+        
+                child: Column(
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
+        
+                  children: [
+                    const CircleAvatar(
+                      radius: 32,
+        
+                      backgroundColor:
+                      Colors.white,
+        
+                      child: Icon(
+                        Icons.school,
+                        size: 38,
+                        color: Colors.blue,
+                      ),
+                    ),
+        
+                    const SizedBox(height: 10),
+        
+                    const Text(
+                      'School Management',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight:
+                        FontWeight.bold,
+                      ),
+                    ),
+        
+                    const Text(
+                      'Offline School System',
+                      style: TextStyle(
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.home,
+                ),
+        
+                title: const Text(
+                  'Home',
+                ),
+        
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.people,
+                ),
+        
+                title: const Text(
+                  'Students',
+                ),
+        
+                onTap: () {
+                  Navigator.push(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const StudentScreen(),
+                    ),
+                  );
+                },
+              ),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.person,
+                ),
+        
+                title: const Text(
+                  'Teachers',
+                ),
+        
+                onTap: () {
+                  Navigator.push(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const TeacherScreen(),
+                    ),
+                  );
+                },
+              ),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.class_,
+                ),
+        
+                title: const Text(
+                  'Classes',
+                ),
+        
+                onTap: () {
+                  Navigator.push(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const ClassScreen(),
+                    ),
+                  );
+                },
+              ),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.check_circle,
+                ),
+        
+                title: const Text(
+                  'Attendance',
+                ),
+        
+                onTap: () {
+                  Navigator.push(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const AttendanceScreen(),
+                    ),
+                  );
+                },
+              ),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.payment,
+                ),
+        
+                title: const Text(
+                  'Fees',
+                ),
+        
+                onTap: () {
+                  Navigator.push(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const FeeScreen(),
+                    ),
+                  );
+                },
+              ),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.school,
+                ),
+        
+                title: const Text(
+                  'Exams / Marks',
+                ),
+        
+                onTap: () {
+                  Navigator.push(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const MarksScreen(),
+                    ),
+                  );
+                },
+              ),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.description,
+                ),
+        
+                title: const Text(
+                  'Reports',
+                ),
+        
+                onTap: () {
+                  Navigator.push(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const ReportScreen(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+        
+                title: const Text(
+                  'Logout',
+                ),
+        
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const LoginScreen(),
+                    ),
+        
+                        (route) => false,
+                  );
+                },
+              ),
+        
+              const Divider(),
+        
+              ListTile(
+                leading: const Icon(
+                  Icons.settings,
+                ),
+        
+                title: const Text(
+                  'Settings',
+                ),
+        
+                onTap: () {
+                  Navigator.push(
+                    context,
+        
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const SettingsScreen(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(
+                  Icons.info_outline,
+                ),
+        
+                title: const Text(
+                  'About',
+                ),
+        
+                onTap: () {
+                  showDialog(
+                    context: context,
+        
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          'About',
+                        ),
+        
+                        content: const Column(
+                          mainAxisSize: MainAxisSize.min,
+        
+                          children: [
+                            Icon(
+                              Icons.school,
+                              size: 50,
+                              color: Colors.blue,
+                            ),
+        
+                            SizedBox(height: 15),
+        
+                            Text(
+                              'School Management System',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+        
+                            SizedBox(height: 8),
+        
+                            Text(
+                              'Version 1.0.0',
+                            ),
+        
+                            SizedBox(height: 10),
+        
+                            Text(
+                              'Offline School Management System '
+                                  'built with Flutter.',
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+        
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+        
+                            child: const Text(
+                              'Close',
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
 
@@ -86,58 +446,78 @@ class HomeScreen extends StatelessWidget {
           CrossAxisAlignment.stretch,
 
           children: [
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsScreen(),
-                  ),
-                );
-              },
 
-              icon: const Icon(Icons.settings),
-
-              label: const Text('Settings'),
-            ),
             Card(
               elevation: 5,
-              color: Colors.blue,
 
-              child: const Padding(
-                padding: EdgeInsets.all(20),
+              child: Container(
+                decoration:  BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.blue,
+                      Colors.indigo,
+                    ],
+                  ),
+                ),
 
-                child: Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
 
-                  children: [
-                    Icon(
-                      Icons.school,
-                      color: Colors.white,
-                      size: 40,
-                    ),
+                  child: Column(
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
 
-                    SizedBox(height: 10),
-
-                    Text(
-                      'Welcome 👋',
-                      style: TextStyle(
+                    children: [
+                      const Icon(
+                        Icons.school,
                         color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
+                        size: 40,
                       ),
-                    ),
 
-                    SizedBox(height: 5),
+                      const SizedBox(height: 10),
 
-                    Text(
-                      'Manage your school easily',
-                      style: TextStyle(
-                        color: Colors.white,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Welcome To 👋\n'
+                                '${controller.schoolNameController.text} Management System',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          Text(
+                            "Phone: ${controller.phoneController.text}",
+                            style: const TextStyle(
+                              color: Colors.white,
+                             fontSize: 16,
+                             ),
+                          ),
+                        SizedBox(height: 10,),
+                           Text(
+                            "Address: ${controller.addressController.text}",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+
+                        const SizedBox(height: 5),
+
+                      const Text(
+                        'Manage your school easily with easy and user friendly interface',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

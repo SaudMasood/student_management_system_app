@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/classcontroller.dart';
+import 'classReport.dart';
 
 class ClassScreen extends StatelessWidget {
   const ClassScreen({super.key});
@@ -22,175 +23,160 @@ class ClassScreen extends StatelessWidget {
         centerTitle: true,
       ),
 
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
 
-        if (controller.classes.isEmpty) {
-          return const Center(
-            child: Column(
-              mainAxisAlignment:
-              MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.class_outlined,
-                  size: 70,
-                  color: Colors.grey,
+            child: SizedBox(
+              width: double.infinity,
+
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const ClassReportScreen(),
+                    ),
+                  );
+                },
+
+                icon: const Icon(
+                  Icons.description,
                 ),
 
-                SizedBox(height: 15),
-
-                Text(
-                  'No Classes',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
+                label: const Text(
+                  'Class Report',
                 ),
-
-                SizedBox(height: 5),
-
-                Text(
-                  'Add a class to get started',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
+              ),
             ),
-          );
-        }
+          ),
 
-        return ListView.builder(
-          padding: const EdgeInsets.all(12),
+          Expanded(
+            child: Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-          itemCount: controller.classes.length,
+              if (controller.classes.isEmpty) {
+                return const Center(
+                  child: Text('No Classes'),
+                );
+              }
 
-          itemBuilder: (context, index) {
-            final classData =
-            controller.classes[index];
+              return ListView.builder(
+                padding: const EdgeInsets.all(12),
 
-            return Card(
-              elevation: 4,
+                itemCount:
+                controller.classes.length,
 
-              margin: const EdgeInsets.only(
-                bottom: 12,
-              ),
+                itemBuilder: (context, index) {
+                  final classData =
+                  controller.classes[index];
 
-              shape: RoundedRectangleBorder(
-                borderRadius:
-                BorderRadius.circular(15),
-              ),
+                  return Card(
+                    elevation: 4,
 
-              child: ListTile(
-                contentPadding:
-                const EdgeInsets.all(12),
-
-                leading: CircleAvatar(
-                  radius: 28,
-
-                  backgroundColor:
-                  Colors.orange.shade100,
-
-                  child: Text(
-                    classData.id.toString(),
-
-                    style: TextStyle(
-                      color: Colors.orange.shade700,
-                      fontWeight: FontWeight.bold,
+                    margin:
+                    const EdgeInsets.only(
+                      bottom: 12,
                     ),
-                  ),
-                ),
 
-                title: Text(
-                  classData.name,
-
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                subtitle: Padding(
-                  padding:
-                  const EdgeInsets.only(top: 5),
-
-                  child: Text(
-                    'ID: ${classData.id}\n'
-                        'Teacher: ${classData.teacher}',
-                  ),
-                ),
-
-                trailing: Row(
-                  mainAxisSize:
-                  MainAxisSize.min,
-
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.edit,
-                        color: Colors.blue,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        child: Text(
+                          classData.id.toString(),
+                        ),
                       ),
 
-                      onPressed: () {
-                        controller
-                            .nameController
-                            .text =
-                            classData.name;
-
-                        controller
-                            .teacherController
-                            .text =
-                            classData.teacher;
-
-                        showClassDialog(
-                          context,
-                          controller,
-                          classData.id,
-                        );
-                      },
-                    ),
-
-                    IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
+                      title: Text(
+                        classData.name,
+                        style: const TextStyle(
+                          fontWeight:
+                          FontWeight.bold,
+                        ),
                       ),
 
-                      onPressed: () {
-                        Get.defaultDialog(
-                          title: 'Delete Class',
+                      subtitle: Text(
+                        'ID: ${classData.id}\n'
+                            'Teacher: ${classData.teacher}',
+                      ),
 
-                          middleText:
-                          'Are you sure?',
+                      trailing: Row(
+                        mainAxisSize:
+                        MainAxisSize.min,
 
-                          textCancel: 'Cancel',
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Colors.blue,
+                            ),
 
-                          textConfirm: 'Delete',
+                            onPressed: () {
+                              controller
+                                  .nameController
+                                  .text =
+                                  classData.name;
 
-                          onConfirm: () {
-                            controller
-                                .deleteClass(
-                              classData.id,
-                            );
+                              controller
+                                  .teacherController
+                                  .text =
+                                  classData.teacher;
 
-                            Get.back();
-                          },
-                        );
-                      },
+                              showClassDialog(
+                                context,
+                                controller,
+                                classData.id,
+                              );
+                            },
+                          ),
+
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+
+                            onPressed: () {
+                              Get.defaultDialog(
+                                title:
+                                'Delete Class',
+
+                                middleText:
+                                'Are you sure?',
+
+                                textCancel:
+                                'Cancel',
+
+                                textConfirm:
+                                'Delete',
+
+                                onConfirm: () {
+                                  controller
+                                      .deleteClass(
+                                    classData.id,
+                                  );
+
+                                  Get.back();
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      }),
-
+                  );
+                },
+              );
+            }),
+          ),
+        ],
+      ),
       floatingActionButton:
       FloatingActionButton.extended(
         onPressed: () {
