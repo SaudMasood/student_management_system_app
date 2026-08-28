@@ -707,31 +707,6 @@ Through this project, I practiced and improved my understanding of:
 
 ---
 
-## 📸 Screenshots
-
-Add application screenshots here after capturing the final UI:
-
-```markdown
-## Screenshots
-
-### Login
-![Login Screen](screenshots/login.png)
-
-### Dashboard
-![Home Screen](screenshots/home.png)
-
-### Students
-![Students Screen](screenshots/students.png)
-
-### Reports
-![Reports Screen](screenshots/reports.png)
-
-### Settings
-![Settings Screen](screenshots/settings.png)
-```
-
----
-
 ## 📂 Main Project Structure
 
 ```text
